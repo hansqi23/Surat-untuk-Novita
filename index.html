@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Surat Cinta untuk Novita</title>
+  <style>
+    body {
+      font-family: "Segoe UI", sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      background: #ffe6f0;
+    }
+    .envelope {
+      width: 200px;
+      height: 150px;
+      background: #ff4d6d;
+      position: relative;
+      cursor: pointer;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: white;
+      font-weight: bold;
+      font-size: 18px;
+    }
+    .letter {
+      display: none;
+      width: 80%;
+      max-width: 500px;
+      height: 70%;
+      background: white;
+      padding: 20px;
+      border-radius: 15px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+      font-size: 16px;
+      line-height: 1.6;
+      overflow-y: auto;
+      animation: fadeIn 1s ease-in-out;
+      white-space: pre-line;
+    }
+    @keyframes fadeIn {
+      from {opacity: 0; transform: translateY(30px);}
+      to {opacity: 1; transform: translateY(0);}
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Amplop -->
+  <div class="envelope" onclick="openLetter()">
+    💌 Klik untuk membuka
+  </div>
+
+  <!-- Surat -->
+  <div class="letter" id="letter"></div>
+
+  <!-- Musik Background -->
+  <audio id="bgm" src="sempurna.mp3" autoplay loop></audio>
+
+  <!-- Suara Ketikan -->
+  <audio id="typeSound" src="https://www.soundjay.com/mechanical/typewriter-key-1.mp3"></audio>
+
+  <script>
+    const text = `
+Hai Novita sayangku...
+
+Aku menulis ini seolah-olah aku sedang menulis surat cinta khusus untukmu.
+
+Sejak kehadiranmu, hari-hariku jadi lebih bermakna.
+Kamu membuat dunia yang sederhana terasa begitu indah.
+
+Novita, kamu bukan hanya pasangan...
+Kamu adalah doa yang paling indah yang Allah ijinkan hadir dalam hidupku.
+
+Aku selalu bersyukur bisa menyebut namamu dalam setiap sujudku.
+
+Bersamamu, aku belajar arti cinta yang sesungguhnya...
+Cinta yang tulus, sabar, dan penuh pengertian.
+
+Aku ingin kita tetap saling menggenggam erat,
+baik dalam tawa maupun dalam air mata.
+
+Novita, kamu adalah alasan aku ingin menjadi versi terbaik dari diriku.
+
+Aku cinta kamu, Novita... selalu dan selamanya.
+
+Dari aku, yang tak pernah berhenti mencintaimu...
+`;
+
+    let i = 0;
+    function typeWriter() {
+      if (i < text.length) {
+        document.getElementById("letter").innerHTML += text.charAt(i);
+        if (text.charAt(i) !== " " && text.charAt(i) !== "\n") {
+          document.getElementById("typeSound").currentTime = 0;
+          document.getElementById("typeSound").play();
+        }
+        i++;
+        setTimeout(typeWriter, 60); // kecepatan ketik
+      }
+    }
+
+    function openLetter() {
+      document.querySelector('.envelope').style.display = 'none';
+      const letter = document.getElementById('letter');
+      letter.style.display = 'block';
+      typeWriter();
+    }
+
+    // trik autoplay musik
+    window.addEventListener('load', () => {
+      const audio = document.getElementById('bgm');
+      audio.play().catch(() => {
+        document.body.addEventListener('click', () => {
+          audio.play();
+        }, { once: true });
+      });
+    });
+  </script>
+
+</body>
+</html>
